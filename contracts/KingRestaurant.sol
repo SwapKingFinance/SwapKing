@@ -20,7 +20,7 @@ contract KingRestaurant {
     uint256 public totalShares;
 
     struct UserInfo {
-        uint256 amount; // SUSHI stake amount
+        uint256 amount; // KING stake amount
         uint256 share;
         uint256 rewardDebt;
     }
@@ -63,7 +63,7 @@ contract KingRestaurant {
         return user.share.mul(accKingPerShare).div(1e12).sub(user.rewardDebt);
     }
 
-    // Enter the restaurant. Pay some SUSHIs. Earn some shares.
+    // Enter the restaurant. Pay some KINGs. Earn some shares.
     function enter(uint256 _amount) public {
         cleanup();
         safeKingTransfer(msg.sender, getPendingReward(msg.sender));
@@ -78,7 +78,7 @@ contract KingRestaurant {
         emit Enter(msg.sender, _amount);
     }
 
-    // Leave the restaurant. Claim back your SUSHIs.
+    // Leave the restaurant. Claim back your KINGs.
     function leave(uint256 _amount) public {
         cleanup();
         safeKingTransfer(msg.sender, getPendingReward(msg.sender));
@@ -92,7 +92,7 @@ contract KingRestaurant {
         emit Leave(msg.sender, _amount);
     }
 
-    // Safe king transfer function, just in case if rounding error causes pool to not have enough SUSHIs.
+    // Safe king transfer function, just in case if rounding error causes pool to not have enough KINGs.
     function safeKingTransfer(address _to, uint256 _amount) internal {
         uint256 kingBal = king.balanceOf(address(this));
         if (_amount > kingBal) {

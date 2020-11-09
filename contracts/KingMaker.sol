@@ -36,7 +36,7 @@ contract KingMaker {
         // First we convert everything to WETH
         uint256 wethAmount = _toWETH(token0) + _toWETH(token1);
         // Then we convert the WETH to King
-        _toSUSHI(wethAmount);
+        _toKING(wethAmount);
     }
 
     // Converts token passed as an argument to WETH
@@ -76,7 +76,7 @@ contract KingMaker {
     }
 
     // Converts WETH to King
-    function _toSUSHI(uint256 amountIn) internal {
+    function _toKING(uint256 amountIn) internal {
         IUniswapV2Pair pair = IUniswapV2Pair(factory.getPair(weth, king));
         // Choose WETH as input token
         (uint reserve0, uint reserve1,) = pair.getReserves();

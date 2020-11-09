@@ -25,7 +25,7 @@ interface IMigratorChef {
 // MasterChef is the master of King. He can make King and he is a fair guy.
 //
 // Note that it's ownable and the owner wields tremendous power. The ownership
-// will be transferred to a governance smart contract once SUSHI is sufficiently
+// will be transferred to a governance smart contract once KING is sufficiently
 // distributed and the community can show to govern itself.
 //
 // Have fun reading it. Hopefully it's bug-free. God bless.
@@ -38,7 +38,7 @@ contract MasterChef is Ownable {
         uint256 amount;     // How many LP tokens the user has provided.
         uint256 rewardDebt; // Reward debt. See explanation below.
         //
-        // We do some fancy math here. Basically, any point in time, the amount of SUSHIs
+        // We do some fancy math here. Basically, any point in time, the amount of KINGs
         // entitled to a user but is pending to be distributed is:
         //
         //   pending reward = (user.amount * pool.accKingPerShare) - user.rewardDebt
@@ -53,18 +53,18 @@ contract MasterChef is Ownable {
     // Info of each pool.
     struct PoolInfo {
         IERC20 lpToken;           // Address of LP token contract.
-        uint256 allocPoint;       // How many allocation points assigned to this pool. SUSHIs to distribute per block.
-        uint256 lastRewardBlock;  // Last block number that SUSHIs distribution occurs.
-        uint256 accKingPerShare; // Accumulated SUSHIs per share, times 1e12. See below.
+        uint256 allocPoint;       // How many allocation points assigned to this pool. KINGs to distribute per block.
+        uint256 lastRewardBlock;  // Last block number that KINGs distribution occurs.
+        uint256 accKingPerShare; // Accumulated KINGs per share, times 1e12. See below.
     }
 
-    // The SUSHI TOKEN!
+    // The KING TOKEN!
     KingToken public king;
     // Dev address.
     address public devaddr;
-    // Block number when bonus SUSHI period ends.
+    // Block number when bonus KING period ends.
     uint256 public bonusEndBlock;
-    // SUSHI tokens created per block.
+    // KING tokens created per block.
     uint256 public kingPerBlock;
     // Bonus muliplier for early king makers.
     uint256 public constant BONUS_MULTIPLIER = 10;
@@ -77,7 +77,7 @@ contract MasterChef is Ownable {
     mapping (uint256 => mapping (address => UserInfo)) public userInfo;
     // Total allocation points. Must be the sum of all allocation points in all pools.
     uint256 public totalAllocPoint = 0;
-    // The block number when SUSHI mining starts.
+    // The block number when KING mining starts.
     uint256 public startBlock;
 
     event Deposit(address indexed user, uint256 indexed pid, uint256 amount);
@@ -118,7 +118,7 @@ contract MasterChef is Ownable {
         }));
     }
 
-    // Update the given pool's SUSHI allocation point. Can only be called by the owner.
+    // Update the given pool's KING allocation point. Can only be called by the owner.
     function set(uint256 _pid, uint256 _allocPoint, bool _withUpdate) public onlyOwner {
         if (_withUpdate) {
             massUpdatePools();
@@ -157,7 +157,7 @@ contract MasterChef is Ownable {
         }
     }
 
-    // View function to see pending SUSHIs on frontend.
+    // View function to see pending KINGs on frontend.
     function pendingKing(uint256 _pid, address _user) external view returns (uint256) {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][_user];
@@ -198,7 +198,7 @@ contract MasterChef is Ownable {
         pool.lastRewardBlock = block.number;
     }
 
-    // Deposit LP tokens to MasterChef for SUSHI allocation.
+    // Deposit LP tokens to MasterChef for KING allocation.
     function deposit(uint256 _pid, uint256 _amount) public {
         PoolInfo storage pool = poolInfo[_pid];
         UserInfo storage user = userInfo[_pid][msg.sender];
@@ -246,7 +246,7 @@ contract MasterChef is Ownable {
         emit EmergencyWithdraw(msg.sender, _pid, amount);
     }
 
-    // Safe king transfer function, just in case if rounding error causes pool to not have enough SUSHIs.
+    // Safe king transfer function, just in case if rounding error causes pool to not have enough KINGs.
     function safeKingTransfer(address _to, uint256 _amount) internal {
         uint256 kingBal = king.balanceOf(address(this));
         if (_amount > kingBal) {

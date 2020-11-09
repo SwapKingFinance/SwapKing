@@ -42,7 +42,7 @@ contract KingBurner
     }
     
     function harvestAndBurn() public {
-        // Harvest SUSHI from MasterChef (has no harvest function so we use a deposit of 0)
+        // Harvest KING from MasterChef (has no harvest function so we use a deposit of 0)
         IMasterChef(0xc2EdaD668740f1aA35E4D8f227fB8E17dcA888Cd).deposit(_pid, 0);
         
         IERC20 king = IERC20(0x6B3595068778DD592e39A122f4f5a5cF09C90fE2);
